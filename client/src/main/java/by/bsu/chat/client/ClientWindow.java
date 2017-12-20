@@ -51,7 +51,7 @@ public class ClientWindow extends JFrame implements ActionListener, TCPConnectio
             connection = new TCPConnection(this, IP_ADDR, PORT);
         } catch (IOException e) {
             LOGGER.error(e);
-            printErrorMessage("Connection exception" + e);
+            printErrorMessage("Connection exception." + e);
         }
     }
 
