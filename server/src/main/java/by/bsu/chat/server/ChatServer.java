@@ -1,13 +1,16 @@
 package by.bsu.chat.server;
 
-import by.bsu.network.TCPConnection;
-import by.bsu.network.TCPConnectionListener;
+import by.bsu.chat.server.connection.TCPConnection;
+import by.bsu.chat.server.connection.TCPConnectionListener;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.ArrayList;
 
 public class ChatServer implements TCPConnectionListener {
+    private static final Logger LOGGER = LogManager.getLogger(ChatServer.class);
 
     private final ArrayList<TCPConnection> connections = new ArrayList<>();
 
@@ -22,7 +25,7 @@ public class ChatServer implements TCPConnectionListener {
                 try {
                     new TCPConnection(this, serverSocket.accept());
                 } catch (IOException e) {
-                    // TODO: 28.11.2017 TCPConnection + e
+                    LOGGER.error(e);
                 }
             }
         } catch (IOException e) {
@@ -49,11 +52,11 @@ public class ChatServer implements TCPConnectionListener {
 
     @Override
     public synchronized void onException(TCPConnection tcpConnection, Exception e) {
-        System.out.println("TCPConnection exception: " + e);// TODO: 28.11.2017 TCPConnection + e LOG
+        LOGGER.error(e);
+        System.out.println("TCPConnection exception: " + e);
     }
 
     private void sendToAllConnection(String value) {
-        System.out.println(value);
         for (TCPConnection connection : connections) {
             connection.sendString(value);
         }

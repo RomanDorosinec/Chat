@@ -1,4 +1,4 @@
-package by.bsu.network;
+package by.bsu.chat.client.connection;
 
 import java.io.*;
 import java.net.Socket;

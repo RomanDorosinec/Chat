@@ -1,7 +1,9 @@
 package by.bsu.chat.client;
 
-import by.bsu.network.TCPConnection;
-import by.bsu.network.TCPConnectionListener;
+import by.bsu.chat.client.connection.TCPConnection;
+import by.bsu.chat.client.connection.TCPConnectionListener;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,6 +12,8 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class ClientWindow extends JFrame implements ActionListener, TCPConnectionListener {
+    private static final Logger LOGGER = LogManager.getLogger(ClientWindow.class);
+
     private static final String IP_ADDR = "127.0.0.1";
     private static final int PORT = 8189;
     private static final int WIDTH = 600;
@@ -46,6 +50,7 @@ public class ClientWindow extends JFrame implements ActionListener, TCPConnectio
         try {
             connection = new TCPConnection(this, IP_ADDR, PORT);
         } catch (IOException e) {
+            LOGGER.error(e);
             printErrorMessage("Connection exception" + e);
         }
     }

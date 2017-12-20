@@ -1,4 +1,4 @@
-package by.bsu.network;
+package by.bsu.chat.server.connection;
 
 public interface TCPConnectionListener {
 
